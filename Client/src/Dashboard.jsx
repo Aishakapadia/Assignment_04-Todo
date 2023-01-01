@@ -5,16 +5,18 @@ import { addEmployeeData } from './Redux/Reducer'
 
 const Dashboard = () => {
 
-    const SignupData = useSelector((state) => state.user.userData)
     const loginData = useSelector((state) => state.user.loginData)
+    const TodoData = useSelector((state) => state.user.userData)
 
    let userName = loginData[0].Signup_data.fname;
+   let username = loginData[0].Signup_data.username;
+   let table = [TodoData]
     
     const dispatch = useDispatch()
 
     const [employeeData, setemployeeData] = useState({
-        EmployeeID: "",
-        EmployeeName: ""
+        
+        TodoList: ""
     });
 
     const [allRecord, setAllRecord] = useState([]);
@@ -26,21 +28,13 @@ const Dashboard = () => {
     const handleOk = () => {
         console.log('from login',JSON.stringify(loginData[0].Signup_data.todo));
         console.log('is this',loginData.Signup_data);
-        // if(employeeData.EmployeeID ){
+        // console.log("todolsot",todolist)
+        if(employeeData.TodoList ){
             
-        //  let  UserEmail = loginData[0].username;
-        // console.log("login emial",loginemail)
-        //     let arr = [];
-        //     // console.log('All the data here Signup, login',count,loginData);
-        //     console.log('what is inside',loginData)
-        //    console.log(UserEmail)
-        //    arr.push({UserEmail,employeeData});
-        //    console.log(arr)
-        // dispatch(addEmployeeData(arr))
-        // // console.log
-        // // AddNewUser();
-        // console.log("inside this")
-        // }
+        dispatch(addEmployeeData(employeeData))
+        console.log('todo herrrrrrrrrrrrrrr',JSON.stringify(TodoData))
+        AddNewUser();
+        }
         setIsModalOpen(false);
     };
     const handleCancel = () => {
@@ -52,6 +46,7 @@ const Dashboard = () => {
         setemployeeData((data) => {
             return {
                 ...data,
+                username,
                 [name]: value
             }
         })
@@ -68,29 +63,17 @@ const Dashboard = () => {
 
             <b> Welcome{userName}</b>
             <br />
-            {/* Your User ID is {loginData[0].username} */}
-            {/* Your Todo is {count[0].todo} */}
+
 
             <Button type="primary" onClick={showModal}>
                 Open Modal
             </Button>
-            <Modal title="Add Employee Details" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <Modal title="Add Todo" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 {/* <h4>Add Employee Details</h4> */}
 
-                <Form.Item
-                    label="Employee ID" name="EmployeeID"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                >
-                    <Input name="EmployeeID" onChange={Setting} value={employeeData.EmployeeID} />
-                </Form.Item>
 
                 <Form.Item
-                    label=" Employee Name" name="EmployeeName"
+                    label=" Todo Task" name="EmployeeName"
                     rules={[
                         {
                             required: true,
@@ -98,28 +81,41 @@ const Dashboard = () => {
                         },
                     ]}
                 >
-                    <Input name="EmployeeName" onChange={Setting} value={employeeData.EmployeeName} />
+                    <Input name="TodoList" onChange={Setting} value={employeeData.TodoList} />
                 </Form.Item>
 
             </Modal>
-
+                {/* <div>{table}</div> */}
             <div id="managerTable">
                 <table>
-                    <thead>
                         <tr>
-                            <th >Employee ID</th>
-                            <th>Employee Name</th>
+                            <th >Todo List</th>
                         </tr>
-                    </thead>
-                    {allRecord.map((v, i) => {
+                    {table.map((v, i) => {
                         return (<tr key={i}>
-                            <td>{v.EmployeeID}</td>
-                            <td>{v.EmployeeName}</td>
-
-                        </tr>)
+                            <li>{v.todo}<br/></li>
+                            </tr> )
                     })}
                 </table>
             </div>
+            {/* <div>
+                {}
+            </div> */}
+
+            {/* <div id="managerTable">
+                <table>
+                        <tr>
+                            <th >Todo List</th>
+                        </tr>
+                    {table.map((v, i) => {
+                        return (<tr key={i}>
+                            </tr>
+                            <tr>{v.todo}</tr>
+                            <br/>
+                        >)
+                    })}
+                </table>
+            </div> */}
 
         </>
     )

@@ -9,7 +9,6 @@ export const addSignupUser = createAsyncThunk(
             body: JSON.stringify(data)
             
         };
-        console.log('here',data)
         const res = await fetch('http://localhost:3005/signup', requestOptions)
         return res.json();
     }
@@ -42,7 +41,7 @@ export const addEmployeeData = createAsyncThunk(
 
         const res = await fetch('http://localhost:3005/addEmployee', requestOptions)
             // useDispatch(push('/dashboard'));
-            console.log('response data here',res)
+            console.log('checkinggggggg todoo',res)
             return res.json();
     }
 )
@@ -101,6 +100,13 @@ export const addUser = createSlice({
             state.loginData = action.payload.data;
             console.log('login done...');
             state.redirectToDashboard = true;
+        },
+        [addEmployeeData.pending]: state => {
+            console.log('Signup Pending...');
+        },
+        [addEmployeeData.fulfilled]: (state, action) => {
+            state.userData = action.payload.data;
+            console.log('todo fulfilled...');
         }
     }
 
