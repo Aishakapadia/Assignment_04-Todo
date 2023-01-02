@@ -1,8 +1,6 @@
 const Signup_UserArr = [];
 const Login_UserArr = [];
 
-
-
 exports.addSignup_user = (req, res) => {
     if (req.body)
         Signup_UserArr.push(req.body);
@@ -11,25 +9,20 @@ exports.addSignup_user = (req, res) => {
 }
 
 exports.addLogin_user = (req, res) => {
-    if (req.body)
+    if (req.body){
         Login_UserArr.push(req.body);
-    console.log("signup data here", Signup_UserArr);
-    let Login_username = req.body.username;
-    let signupEmail = Signup_UserArr.find(value => value.username == Login_username)
-    let arr = [{ Signup_data: signupEmail }]
-    console.log('found', signupEmail);
-    res.send({ data: arr });
+        console.log("signup data here", Signup_UserArr);
+        let Login_username = req.body.username;
+        let signupEmail = Signup_UserArr.find(value => value.username == Login_username)
+        let arr = [{ Signup_data: signupEmail }]
+        console.log('found', signupEmail);
+        res.send({ data: arr });
+    }
+       
 }
 
-// exports.addEmployee_data = (req, res) => {
-//     if (req.body)
-//     Employee_Data.push(req.body);
-//     console.log('userAdded',req.body)
-//     res.send(Employee_Data);
-// }
 
 exports.addEmployee_data = (req, res) => {
-
 
     if (req.body) {
         let Login_username = req.body.username;
@@ -48,14 +41,5 @@ exports.addEmployee_data = (req, res) => {
             }
         }
 
-
-        
     }
-
 }
-
-// function getMessages(req, res) {
-//     res.send(messagesArr);
-// }
-
-// module.exports = UserRouter;

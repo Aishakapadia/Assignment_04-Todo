@@ -23,24 +23,6 @@ const Login = () => {
     const SignupData = useSelector((state) => state.user.userData)
     let Loginusername = logedIn.username;
     let signupEmail = SignupData.find(value => value.username== Loginusername)
-
-   
-
-        const signupUsername = state.userData.find(value => value.username == )
-        const signuppassword = state.userData.find(value => value.password == action.payload.password)
-        if (signupUsername && signuppassword) {
-
-            state.loginData.push(action.payload);
-            state.redirectToDashboard = true;
-            // console.log("before redirect");
-            // checkLoginDetails();
-            // console.log("abc");
-        }
-        else {
-            alert('Please Signup first')
-            state.redirectToDashboard = false;
-        }
-
     
 
     const Setting = (event) => {

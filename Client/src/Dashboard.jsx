@@ -10,14 +10,12 @@ const Dashboard = () => {
 
    let userName = loginData[0].Signup_data.fname;
    let username = loginData[0].Signup_data.username;
-   let table = [TodoData]
+   let tableMain = [TodoData.todo];
+
     
     const dispatch = useDispatch()
 
-    const [employeeData, setemployeeData] = useState({
-        
-        TodoList: ""
-    });
+    const [todo, setTodo] = useState();
 
     const [allRecord, setAllRecord] = useState([]);
 
@@ -26,13 +24,13 @@ const Dashboard = () => {
         setIsModalOpen(true);
     };
     const handleOk = () => {
-        console.log('from login',JSON.stringify(loginData[0].Signup_data.todo));
-        console.log('is this',loginData.Signup_data);
+        console.log('from login',JSON.stringify(TodoData.todo));
+       
         // console.log("todolsot",todolist)
-        if(employeeData.TodoList ){
+        if(todo){
             
-        dispatch(addEmployeeData(employeeData))
-        console.log('todo herrrrrrrrrrrrrrr',JSON.stringify(TodoData))
+        dispatch(addEmployeeData(todo))
+        console.log('todo herrrrrrrrrrrrrrre',JSON.stringify(TodoData))
         AddNewUser();
         }
         setIsModalOpen(false);
@@ -43,7 +41,7 @@ const Dashboard = () => {
 
     const Setting = (event) => {
         const { name, value } = event.target
-        setemployeeData((data) => {
+        setTodo((data) => {
             return {
                 ...data,
                 username,
@@ -53,24 +51,20 @@ const Dashboard = () => {
     }
 
     const AddNewUser = () => {
-
-        setAllRecord([...allRecord, employeeData]);
+        setAllRecord([...allRecord, todo]);
     }
 
 
     return (
         <>
-
             <b> Welcome{userName}</b>
             <br />
-
 
             <Button type="primary" onClick={showModal}>
                 Open Modal
             </Button>
             <Modal title="Add Todo" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 {/* <h4>Add Employee Details</h4> */}
-
 
                 <Form.Item
                     label=" Todo Task" name="EmployeeName"
@@ -81,41 +75,25 @@ const Dashboard = () => {
                         },
                     ]}
                 >
-                    <Input name="TodoList" onChange={Setting} value={employeeData.TodoList} />
+                    <Input name="TodoList" onChange={Setting} value={todo} />
                 </Form.Item>
 
             </Modal>
                 {/* <div>{table}</div> */}
+                
             <div id="managerTable">
                 <table>
                         <tr>
                             <th >Todo List</th>
                         </tr>
-                    {table.map((v, i) => {
+                    {tableMain.map((v, i) => {
                         return (<tr key={i}>
-                            <li>{v.todo}<br/></li>
+                            <tr>{v}</tr>
                             </tr> )
                     })}
                 </table>
             </div>
-            {/* <div>
-                {}
-            </div> */}
-
-            {/* <div id="managerTable">
-                <table>
-                        <tr>
-                            <th >Todo List</th>
-                        </tr>
-                    {table.map((v, i) => {
-                        return (<tr key={i}>
-                            </tr>
-                            <tr>{v.todo}</tr>
-                            <br/>
-                        >)
-                    })}
-                </table>
-            </div> */}
+            
 
         </>
     )
